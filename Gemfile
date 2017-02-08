@@ -45,6 +45,10 @@ group :development, :test do
   gem 'byebug', platform: :mri
   #rspec for testing
   gem "rspec-rails", '~> 3.0'
+  # START_HIGHLIGHT
+  gem 'poltergeist'
+  # END_HIGHLIGHT
+  gem 'database_cleaner'
 end
 
 group :development do
