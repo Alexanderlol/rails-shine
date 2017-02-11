@@ -1,4 +1,12 @@
 class CustomersController < ApplicationController
+
+  def show
+    customer = Customer.find(params[:id])
+    respond_to do |format|
+      format.json { render json: customer }
+    end
+  end
+
   PAGE_SIZE = 10
   def index
     @page = (params[:page] || 0).to_i
