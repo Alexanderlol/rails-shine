@@ -39,6 +39,10 @@ gem 'devise'
 gem 'bower-rails'
 #create test data with faker gem
 gem 'faker'
+#angular templates
+gem 'angular-rails-templates'
+#sprockets
+gem 'sprockets'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

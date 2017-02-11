@@ -1,8 +1,18 @@
-var app = angular.module('customers',['ngRoute']);
+var app = angular.module('customers',['ngRoute', 'templates']);
+
+app.config([
+           "$routeProvider",
+  function($routeProvider) {
+    $routeProvider.when("/", {
+      controller: "CustomerSearchController",
+      templateUrl: "customer_search.html"
+    });
+  }
+]);
 
 app.controller("CustomerSearchController",[
-          "$scope","$http",
-  function($scope, $http){
+          '$scope','$http','$location',
+  function($scope, $http, $location){
     var page = 0;
     $scope.previousPage = function() {
       if (page > 0) {
