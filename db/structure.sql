@@ -30,6 +30,19 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: refresh_customer_details(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION refresh_customer_details() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+      BEGIN
+        REFRESH MATERIALIZED VIEW customer_details;
+        RETURN NULL;
+      END $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -475,6 +488,34 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 
 
 --
+-- Name: customers refresh_customer_details; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER refresh_customer_details AFTER INSERT OR DELETE OR UPDATE ON customers FOR EACH STATEMENT EXECUTE PROCEDURE refresh_customer_details();
+
+
+--
+-- Name: customers_shipping_addresses refresh_customer_details; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER refresh_customer_details AFTER INSERT OR DELETE OR UPDATE ON customers_shipping_addresses FOR EACH STATEMENT EXECUTE PROCEDURE refresh_customer_details();
+
+
+--
+-- Name: customers_billing_addresses refresh_customer_details; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER refresh_customer_details AFTER INSERT OR DELETE OR UPDATE ON customers_billing_addresses FOR EACH STATEMENT EXECUTE PROCEDURE refresh_customer_details();
+
+
+--
+-- Name: addresses refresh_customer_details; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER refresh_customer_details AFTER INSERT OR DELETE OR UPDATE ON addresses FOR EACH STATEMENT EXECUTE PROCEDURE refresh_customer_details();
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -486,6 +527,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170127051545'),
 ('20170127091251'),
 ('20170212133017'),
-('20170213165650');
+('20170213165650'),
+('20170213183009');
 
 
