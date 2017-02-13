@@ -7,12 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #faker gem test data
-999.times do |i|
-  Customer.create!(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    username: "#{Faker::Internet.user_name}#{i}",
-    email: Faker::Internet.user_name + i.to_s + "@#{Faker::Internet.domain_name}")
+if Customer.all.count == 0
+  999.times do |i|
+    email = Faker::Internet.user_name + i.to_s + 
+      "@#{Faker::Internet.domain_name}"
+    Customer.create!(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      username: "#{Faker::Internet.user_name}#{i}",
+      email: email)
+  end
 end
 
 # Create all 50 states in the US
