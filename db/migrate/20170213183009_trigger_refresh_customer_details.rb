@@ -29,6 +29,6 @@ class TriggerRefreshCustomerDetails < ActiveRecord::Migration[5.0]
   end
 
   def down
-
+  	
   end
 end
